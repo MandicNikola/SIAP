@@ -15,6 +15,16 @@ class Metrics:
         print("Recall ", word, ": ", recall_score(y, y_pred))
         print("F measure: ", f1_score(y, y_pred))
 
+    @staticmethod
+    def csv_metrics(y, y_pred, classifier):
+        return {
+            "classifier": classifier,
+            "accuracy": round(accuracy_score(y, y_pred) * 100, 2).__str__() + '%',
+            "precision": round(precision_score(y, y_pred) * 100, 2).__str__() + '%',
+            "recall": round(recall_score(y, y_pred) * 100, 2).__str__() + '%',
+            "F measure": round(f1_score(y, y_pred) * 100, 2).__str__() + '%',
+        }
+
 
 class DataHelper:
 
