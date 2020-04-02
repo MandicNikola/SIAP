@@ -1,0 +1,9 @@
+classifier,accuracy,precision,recall,F measure,type
+SVC,75.32%,66.2%,58.75%,62.25%,validation before pseudo
+SVC,74.89%,65.28%,58.75%,61.84%,validation after pseudo
+KNeighborsClassifier,67.53%,53.01%,55.0%,53.99%,validation before pseudo
+KNeighborsClassifier,66.23%,51.39%,46.25%,48.68%,validation after pseudo
+LogisticRegression,74.46%,65.22%,56.25%,60.4%,validation before pseudo
+LogisticRegression,75.32%,67.69%,55.0%,60.69%,validation after pseudo
+GaussianNB,74.46%,62.35%,66.25%,64.24%,validation before pseudo
+GaussianNB,71.86%,59.04%,61.25%,60.12%,validation after pseudo

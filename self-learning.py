@@ -6,8 +6,9 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
+import csv
 
-from metrics import Metrics
+from metrics import Metrics, DataHelper
 
 from pseudo import Pseudo
 
@@ -18,6 +19,9 @@ models = [SVC(kernel='linear', probability=True), KNeighborsClassifier(n_neighbo
 labeled_data = pd.read_csv("D:\\Nikola Faks\\SIAP\\diabetess.csv")
 # unlabeled data
 unlabeled_data = pd.read_csv("D:\\Nikola Faks\\SIAP\\diabetes.csv")
+
+labeled_data = DataHelper.root_square_columns(labeled_data, ['Insulin', 'SkinThickness'])
+unlabeled_data = DataHelper.root_square_columns(unlabeled_data, ['Insulin', 'SkinThickness'])
 
 # get labels from columns
 y = labeled_data[['Outcome']]
@@ -32,6 +36,8 @@ x_train, x_test, y_train, y_test = train_test_split(np.array(x), np.array(y), te
 print('Train shape: ', x_train.shape, y_train.shape)
 print('Test shape: ', x_test.shape, y_test.shape)
 
+classifiers_dictionaries = []
+
 for model in models:
     print('Model', type(model).__name__)
     print('Without pseudo-labeled data')
@@ -41,6 +47,11 @@ for model in models:
     y_test_pred = model.predict(x_test)
     Metrics.metrics_info(y_train, y_train_pred, 'Train')
     Metrics.metrics_info(y_test, y_test_pred, 'Validation')
+
+    classifier_test_dict = Metrics.csv_metrics(y_test, y_test_pred, type(model).__name__)
+    classifier_test_dict['type'] = 'validation before pseudo'
+    classifiers_dictionaries.append(classifier_test_dict)
+
     print('*********************************')
     print('With pseudo-labeled data')
     pseudo = Pseudo(model, x_unlabeled, 'Outcome')
@@ -54,7 +65,21 @@ for model in models:
     y_test_pred = model.predict(x_test)
     Metrics.metrics_info(y, y_train_pred, 'Train')
     Metrics.metrics_info(y_test, y_test_pred, 'Validation')
+
+    classifier_test_dict = Metrics.csv_metrics(y_test, y_test_pred, type(model).__name__)
+    classifier_test_dict['type'] = 'validation after pseudo'
+    classifiers_dictionaries.append(classifier_test_dict)
     print('*********************************')
 
 
 
+csvColumns = ['classifier', 'accuracy', 'precision', 'recall', 'F measure', 'type']
+
+try:
+    with open('root_square_normalization_pseudo_classification.csv', 'w', newline='') as csvFile:
+        writer = csv.DictWriter(csvFile, fieldnames=csvColumns)
+        writer.writeheader()
+        for data in classifiers_dictionaries:
+            writer.writerow(data)
+except IOError:
+    print("error")
