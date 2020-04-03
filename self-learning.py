@@ -6,6 +6,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import RandomForestClassifier
 import csv
 
 from metrics import Metrics, DataHelper
@@ -13,15 +14,18 @@ from metrics import Metrics, DataHelper
 from pseudo import Pseudo
 
 # models for testing self-learning
-models = [SVC(kernel='linear', probability=True), KNeighborsClassifier(n_neighbors=1), LogisticRegression(random_state=0, max_iter=1000), GaussianNB()]
+models = [SVC(kernel='linear', probability=True), KNeighborsClassifier(n_neighbors=1), LogisticRegression(random_state=0, max_iter=1000), GaussianNB(), RandomForestClassifier()]
 
 # labeled data
 labeled_data = pd.read_csv("D:\\Nikola Faks\\SIAP\\diabetess.csv")
 # unlabeled data
 unlabeled_data = pd.read_csv("D:\\Nikola Faks\\SIAP\\diabetes.csv")
 
-labeled_data = DataHelper.root_square_columns(labeled_data, ['Insulin', 'SkinThickness'])
-unlabeled_data = DataHelper.root_square_columns(unlabeled_data, ['Insulin', 'SkinThickness'])
+# labeled_data = DataHelper.root_square_columns(labeled_data, ['Insulin', 'SkinThickness'])
+# unlabeled_data = DataHelper.root_square_columns(unlabeled_data, ['Insulin', 'SkinThickness'])
+# labeled_data = DataHelper.min_max_normalization(labeled_data)
+# unlabeled_data = DataHelper.min_max_normalization(unlabeled_data)
+
 
 # get labels from columns
 y = labeled_data[['Outcome']]
@@ -76,7 +80,7 @@ for model in models:
 csvColumns = ['classifier', 'accuracy', 'precision', 'recall', 'F measure', 'type']
 
 try:
-    with open('root_square_normalization_pseudo_classification.csv', 'w', newline='') as csvFile:
+    with open('normal_pseudo_classification.csv', 'w', newline='') as csvFile:
         writer = csv.DictWriter(csvFile, fieldnames=csvColumns)
         writer.writeheader()
         for data in classifiers_dictionaries:

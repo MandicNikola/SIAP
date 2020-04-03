@@ -7,3 +7,5 @@ LogisticRegression,74.46%,65.22%,56.25%,60.4%,validation before pseudo
 LogisticRegression,75.32%,67.69%,55.0%,60.69%,validation after pseudo
 GaussianNB,74.46%,62.35%,66.25%,64.24%,validation before pseudo
 GaussianNB,71.86%,59.04%,61.25%,60.12%,validation after pseudo
+RandomForestClassifier,73.59%,61.73%,62.5%,62.11%,validation before pseudo
+RandomForestClassifier,72.73%,61.64%,56.25%,58.82%,validation after pseudo

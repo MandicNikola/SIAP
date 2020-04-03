@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import cross_val_score
 import csv
 
@@ -17,11 +18,10 @@ data = pd.read_csv("D:\\Nikola Faks\\SIAP\\combined_diabetes_csv.csv")
 # data = pd.read_csv("D:\\Nikola Faks\\SIAP\\diabetess.csv")
 # SVC(kernel='linear', probability=True),
 # used models for prediction
-models = [SVC(kernel='linear', probability=True), KNeighborsClassifier(n_neighbors=1), LogisticRegression(random_state=0, max_iter=1000), GaussianNB()]
+models = [SVC(kernel='linear', probability=True), KNeighborsClassifier(n_neighbors=1), LogisticRegression(random_state=0, max_iter=1000), GaussianNB(), RandomForestClassifier()]
 
 # data = DataHelper.min_max_normalization(data)
-
-data = DataHelper.root_square_columns(data, ['Insulin', 'SkinThickness'])
+# data = DataHelper.root_square_columns(data, ['Insulin', 'SkinThickness'])
 
 # get x, y for data, need to put column
 x, y = DataHelper.get_x_y_from_data(data, 'Outcome')
@@ -59,7 +59,7 @@ for model in models:
 csvColumns = ['classifier', 'accuracy', 'precision', 'recall', 'F measure', 'type']
 
 try:
-    with open('root_square_classification.csv', 'w', newline='') as csvFile:
+    with open('normal_data_classification.csv', 'w', newline='') as csvFile:
         writer = csv.DictWriter(csvFile, fieldnames=csvColumns)
         writer.writeheader()
         for data in classifiers_dictionaries:
