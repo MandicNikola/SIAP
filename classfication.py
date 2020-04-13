@@ -20,7 +20,7 @@ data = pd.read_csv("D:\\Nikola Faks\\SIAP\\diabetess.csv")
 # used models for prediction
 models = [SVC(kernel='linear', probability=True), KNeighborsClassifier(n_neighbors=1), LogisticRegression(random_state=0, max_iter=1000), GaussianNB(), RandomForestClassifier()]
 
-# data = DataHelper.min_max_normalization(data)
+data = DataHelper.min_max_normalization(data)
 # data = DataHelper.root_square_columns(data, ['Insulin', 'SkinThickness'])
 
 # get x, y for data, need to put column
@@ -59,7 +59,7 @@ for model in models:
 csvColumns = ['classifier', 'accuracy', 'precision', 'recall', 'F measure', 'type']
 
 try:
-    with open('normal_data_classification_smaller_dataset.csv', 'w', newline='') as csvFile:
+    with open('minmax_data_classification_smaller_dataset.csv', 'w', newline='') as csvFile:
         writer = csv.DictWriter(csvFile, fieldnames=csvColumns)
         writer.writeheader()
         for data in classifiers_dictionaries:

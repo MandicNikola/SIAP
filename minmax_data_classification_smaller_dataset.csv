@@ -1,0 +1,11 @@
+classifier,accuracy,precision,recall,F measure,type
+SVC,76.93%,77.84%,75.31%,76.55%,train
+SVC,70.13%,56.16%,74.55%,64.06%,validation
+KNeighborsClassifier,100.0%,100.0%,100.0%,100.0%,train
+KNeighborsClassifier,68.18%,55.17%,58.18%,56.64%,validation
+LogisticRegression,76.43%,77.04%,75.31%,76.17%,train
+LogisticRegression,70.13%,56.16%,74.55%,64.06%,validation
+GaussianNB,73.07%,74.93%,69.33%,72.02%,train
+GaussianNB,72.08%,58.82%,72.73%,65.04%,validation
+RandomForestClassifier,100.0%,100.0%,100.0%,100.0%,train
+RandomForestClassifier,75.97%,63.64%,76.36%,69.42%,validation
