@@ -14,8 +14,8 @@ from imblearn.over_sampling import SMOTE
 from metrics import Metrics, DataHelper
 
 
-data = pd.read_csv("D:\\Nikola Faks\\SIAP\\combined_diabetes_csv.csv")
-# data = pd.read_csv("D:\\Nikola Faks\\SIAP\\diabetess.csv")
+# data = pd.read_csv("D:\\Nikola Faks\\SIAP\\combined_diabetes_csv.csv")
+data = pd.read_csv("D:\\Nikola Faks\\SIAP\\diabetess.csv")
 # SVC(kernel='linear', probability=True),
 # used models for prediction
 models = [SVC(kernel='linear', probability=True), KNeighborsClassifier(n_neighbors=1), LogisticRegression(random_state=0, max_iter=1000), GaussianNB(), RandomForestClassifier()]
@@ -59,7 +59,7 @@ for model in models:
 csvColumns = ['classifier', 'accuracy', 'precision', 'recall', 'F measure', 'type']
 
 try:
-    with open('normal_data_classification.csv', 'w', newline='') as csvFile:
+    with open('normal_data_classification_smaller_dataset.csv', 'w', newline='') as csvFile:
         writer = csv.DictWriter(csvFile, fieldnames=csvColumns)
         writer.writeheader()
         for data in classifiers_dictionaries:
